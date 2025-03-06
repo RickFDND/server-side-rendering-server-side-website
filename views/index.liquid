@@ -1,1 +1,9 @@
-Succes!
+{% render 'partials/head.liquid' %}
+<section>
+    {% for story in data %}
+     <h1>  {{ story.title }} </h1>
+     <img src="{{ story.image }}">
+
+    {% endfor %}
+    </section>
+{% render 'partials/footer.liquid' %}
