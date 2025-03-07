@@ -54,6 +54,33 @@ app.post('/', async function (request, response) {
   response.redirect(303, '/')
 })
 
+//naar een unieke pagina met een specifieke story//
+app.get('/story/:id', async function (request, response) { //route aanmaken voor specifieke story. (story/:id) voor id 11 leid naar story/11
+  try {
+    const { id } = request.params; //haal het id uit de url
+
+    //maak fetch aanroep naar api met id van url
+    const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story/${id}`);
+
+    //zet response van API om naar JSon
+    const storyResponseJSON = await storyResponse.json();
+
+    //check of data er is. Zo niet geef error aan.
+    if (!storyResponseJSON.data || storyResponseJSON.data.length === 0) {
+      return response.status(404).send('Story not found');
+    }
+
+    //render story.liquid en geef juiste story mee.
+    response.render('story.liquid', { story: storyResponseJSON.data[0] });
+  }
+
+  catch (error) {
+    // foutafhandeling in geval van error
+    console.error(error);
+    response.status(500).send('Er is iets foutgegaan met het ophalen van de story');
+  }
+});
+
 // Stel het poortnummer in waar Express op moet gaan luisteren
 // Lokaal is dit poort 8000, als dit ergens gehost wordt, is het waarschijnlijk poort 80
 app.set('port', process.env.PORT || 8000)
