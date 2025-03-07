@@ -1,9 +1,77 @@
 {% render 'partials/head.liquid' %}
-<section>
-    {% for story in data %}
-     <h1>  {{ story.title }} </h1>
-     <img src="{{ story.image }}">
+<header>
+    <h1>Lessons</h1>
+    <span>Listening</span>
+</header>
 
+<section class="own-playlist">
+    <h2>Own playlist</h2>
+    <ul>
+        {% for story in stories %}
+        <li class="own-playlist-story">
+            <img src="{{ story.image }}">
+            <h3>{{ story.title }}</h3>
+            <a>Playbutton</a>
+            <p>{{ story.playtime }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    <article>
+        <span>Horizontaal</span>
+        <span>Verticaal</span>
+        <h3>Make a playlist!</h3>
+        <p>Add your favorite stories in one playlist</p>
+    </article>
+</section>
+
+<section class="all-stories">
+    <h2>All stories</h2>
+    <button>{{ story.language }}</button>
+    <button>{{ story.language }}</button>
+    <button>Show all</button>
+    <ul>
+    {% for story in stories %}
+       <li class="story">
+        <img src="{{ story.image }}">
+        <h3>{{ story.title }}</h3>
+        <svg>{{ story.language }}</svg>
+        <p>{{ story.summary }}</p>
+        <a>Playbutton</a>
+        <p>{{ story.playtime }}</p>
+       </li>
     {% endfor %}
-    </section>
+    </ul>
+    <button>Pijl naar links</button>
+    <p>1...12</p>
+    <button>Pijl naar rechts</button>
+</section>
+
+<section class="liked-playlist">
+    <h2>Liked playlist</h2>
+    <ul>
+        {% for story in stories %}
+        <li class="liked-playlist-story">
+            <img src="{{ story.image }}">
+            <h3>{{ story.title }}</h3>
+            <a>Playbutton</a>
+            <p>{{ story.playtime }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section class="suggested-playlist">
+    <h2>Suggested playlist</h2>
+    <ul>
+        {% for story in stories %}
+        <li class="liked-playlist-story">
+            <img src="{{ story.image }}">
+            <h3>{{ story.title }}</h3>
+            <a>Playbutton</a>
+            <p>{{ story.playtime }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
 {% render 'partials/footer.liquid' %}
