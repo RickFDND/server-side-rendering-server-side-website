@@ -55,30 +55,17 @@ app.post('/', async function (request, response) {
 })
 
 //naar een unieke pagina met een specifieke story//
-app.get('/story/:id', async function (request, response) { //route aanmaken voor specifieke story. (story/:id) voor id 11 leid naar story/11
-  try {
-    const { id } = request.params; //haal het id uit de url
+app.get('/story/:id', async function (request, response) {
+  const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story?filter={"id":"${request.params.id}"}`);
+  const storyResponseJSON = await storyResponse.json();
 
-    //maak fetch aanroep naar api met id van url
-    const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story/${id}`);
-
-    //zet response van API om naar JSon
-    const storyResponseJSON = await storyResponse.json();
-
-    //check of data er is. Zo niet geef error aan.
-    if (!storyResponseJSON.data || storyResponseJSON.data.length === 0) {
-      return response.status(404).send('Story not found');
-    }
-
-    //render story.liquid en geef juiste story mee.
-    response.render('story.liquid', { story: storyResponseJSON.data[0] });
+  // Controleer of er data is voor de opgegeven story
+  if (!storyResponseJSON.data || storyResponseJSON.data.length === 0) {
+    return response.status(404).send('Story not found');
   }
 
-  catch (error) {
-    // foutafhandeling in geval van error
-    console.error(error);
-    response.status(500).send('Er is iets foutgegaan met het ophalen van de story');
-  }
+  // Render de 'story.liquid' pagina met de opgehaalde story data
+  response.render('story.liquid', { story: storyResponseJSON.data[0] });
 });
 
 // Stel het poortnummer in waar Express op moet gaan luisteren

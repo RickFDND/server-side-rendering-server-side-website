@@ -1,4 +1,20 @@
 {% render 'partials/head.liquid' %}
-<h1>hi</h1>
+<header>
+    <button>terug</button>
+    <button>dag/nacht</button>
+    <button>geen filmpje</button>
+</header>
+<main>
+    <section>
+        <img src="{{ story.image }}">
+        <p>{{ story.transcript }}</p>
+        <h2>{{ story.title }}</h2>
+    </section>
+    <button>play/pause</button>
+    <button>volume</button>
+</main>
+<footer>
+    <p>progression bar</p>
+</footer>
 
 {% render 'partials/footer.liquid' %}
