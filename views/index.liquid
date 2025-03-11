@@ -9,9 +9,9 @@
     <ul>
         {% for story in stories %}
         <li class="own-playlist-story">
-            <img src="{{ story.image }}">
+            <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
             <h3>{{ story.title }}</h3>
-            <a>Playbutton</a>
+            <a href="/story/{{ story.id }}">Playbutton</a>
             <p>{{ story.playtime }}</p>
         </li>
         {% endfor %}
@@ -32,7 +32,7 @@
     <ul>
     {% for story in stories %}
        <li class="story">
-        <img src="{{ story.image }}">
+        <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
         <h3>{{ story.title }}</h3>
         <svg>{{ story.language }}</svg>
         <p>{{ story.summary }}</p>
@@ -51,7 +51,7 @@
     <ul>
         {% for story in stories %}
         <li class="liked-playlist-story">
-            <img src="{{ story.image }}">
+            <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
             <h3>{{ story.title }}</h3>
             <a>Playbutton</a>
             <p>{{ story.playtime }}</p>
@@ -65,7 +65,7 @@
     <ul>
         {% for story in stories %}
         <li class="liked-playlist-story">
-            <img src="{{ story.image }}">
+            <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
             <h3>{{ story.title }}</h3>
             <a>Playbutton</a>
             <p>{{ story.playtime }}</p>

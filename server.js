@@ -36,7 +36,7 @@ app.set('views', './views')
 // Maak een GET route voor de index (meestal doe je dit in de root, als /)
 app.get('/', async function (request, response) {
 
-  let stories = await fetch('https://fdnd-agency.directus.app/items/tm_story')
+  let stories = await fetch('https://fdnd-agency.directus.app/items/tm_story?fields=*,audio.audio_file,audio.transcript')
 
   let storiesJSON = await stories.json()
 
@@ -54,9 +54,9 @@ app.post('/', async function (request, response) {
   response.redirect(303, '/')
 })
 
-//naar een unieke pagina met een specifieke story//
+//naar een unieke pagina met een specifieke story een slug//
 app.get('/story/:id', async function (request, response) {
-  const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story?filter={"id":"${request.params.id}"}`);
+  const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story?filter={"id":"${request.params.id}"}&fields=*,audio.audio_file,audio.transcript`);
   const storyResponseJSON = await storyResponse.json();
 
   // Controleer of er data is voor de opgegeven story
@@ -66,6 +66,33 @@ app.get('/story/:id', async function (request, response) {
 
   // Render de 'story.liquid' pagina met de opgehaalde story data
   response.render('story.liquid', { story: storyResponseJSON.data[0] });
+});
+
+
+
+//story transcript (later nog koppelen aan de audio)
+app.get('/story/:id/vtt', async function (request, response) {
+  
+  const storyResponse = await fetch(`https://fdnd-agency.directus.app/items/tm_story?filter={"id":"${request.params.id}"}&fields=*,audio.transcript`);
+  const storyResponseJSON = await storyResponse.json();
+
+  // Controleer of er data is voor de opgegeven story
+  if (!storyResponseJSON.data || storyResponseJSON.data.length === 0) {
+    return response.status(404).send('Story not found');
+  }
+  
+  // Render de 'story.liquid' pagina met de opgehaalde story data
+  response.send(storyResponseJSON.data[0].audio[0].transcript);
+})
+
+//huts
+app.get('/a/', (req, res) => {
+  res.send('hallo')
+})
+
+//foutmelding
+app.use((req, res, next) => {
+  res.redirect('/'); // Gebruiker wordt doorgestuurd naar de /home pagina
 });
 
 // Stel het poortnummer in waar Express op moet gaan luisteren

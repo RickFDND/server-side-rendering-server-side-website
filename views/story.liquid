@@ -6,8 +6,8 @@
 </header>
 <main>
     <section>
-        <img src="{{ story.image }}">
-        <p>{{ story.transcript }}</p>
+        <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
+        <p>{{ story.audio[0].transcript }}</p>
         <h2>{{ story.title }}</h2>
     </section>
     <button>play/pause</button>
