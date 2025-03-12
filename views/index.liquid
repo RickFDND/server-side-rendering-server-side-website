@@ -7,7 +7,7 @@
 <section class="own-playlist">
     <h2>Own playlist</h2>
     <ul>
-        {% for story in stories %}
+        {% for story in stories limit:8 %}
         <li class="own-playlist-story">
             <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
             <h3>{{ story.title }}</h3>
@@ -15,9 +15,9 @@
             <p>{{ story.playtime }}</p>
         </li>
         {% endfor %}
-        <li>
-            <span>Horizontaal</span>
-            <span>Verticaal</span>
+        <li class="own-playlist-add">
+            <span></span>
+            <span></span>
             <h3>Make a playlist!</h3>
             <p>Add your favorite stories in one playlist</p>
         </li>
@@ -49,7 +49,7 @@
 <section class="liked-playlist">
     <h2>Liked playlist</h2>
     <ul>
-        {% for story in stories %}
+        {% for story in stories limit:2 %}
         <li class="liked-playlist-story">
             <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
             <h3>{{ story.title }}</h3>
@@ -63,7 +63,7 @@
 <section class="suggested-playlist">
     <h2>Suggested playlist</h2>
     <ul>
-        {% for story in stories %}
+        {% for story in stories limit:3 %}
         <li class="liked-playlist-story">
             <img src="https://fdnd-agency.directus.app/assets/{{ story.image }}">
             <h3>{{ story.title }}</h3>
